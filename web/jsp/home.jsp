@@ -4,6 +4,6 @@
     <title>Spending Recordings</title>
   </head>
   <body>
-  $END$
+  <h1>Spending recordings</h1>
   </body>
 </html>
