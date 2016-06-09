@@ -5,7 +5,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.web.ServletTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -34,15 +33,14 @@ public class UserControllerTest extends AbstractTestNGSpringContextTests {
     @Test(groups = "fast")
     public void checkProperRegistration() throws Exception {
         RegisterController controller = new RegisterController();
-        UserCachingInterceptor aspect = new UserCachingInterceptor();
-        aspect.setCashe(cache);
+        controller.cache = cache;
         User user = new User();
         user.setEmail("adrian@gmail");
-        MockMvc mvc = MockMvcBuilders.standaloneSetup(controller, aspect).build();
+        MockMvc mvc = MockMvcBuilders.standaloneSetup(controller).build();
         mvc.perform(MockMvcRequestBuilders.post("/register")
                 .param("email", user.getEmail())
                 .param("password", "asdasd"))
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/users/0"));
-        //verify(cache, Mockito.atLeastOnce()).addUser(user);
+        verify(cache, Mockito.atLeastOnce()).addUser(user);
     }
 }

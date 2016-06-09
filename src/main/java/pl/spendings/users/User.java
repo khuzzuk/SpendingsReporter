@@ -5,21 +5,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @NoArgsConstructor
+@Entity @Table(name = "users")
 public class User {
-    //TODO implement id auto generation
-    private long id=0;
+    @Id
+    @GeneratedValue
+    @Getter @Setter
+    private long id;
 
     @NotNull
-    @Getter @Setter
     @Size(min = 6, max = 30, message = "{password.valid}")
+    @Getter @Setter
+    @Column(name = "pass")
     private String password;
 
     @NotNull
     @Email(message = "{email.valid}")
+    @Column(unique = true)
     private String email;
 
     public String getEmail() {
@@ -28,6 +34,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
