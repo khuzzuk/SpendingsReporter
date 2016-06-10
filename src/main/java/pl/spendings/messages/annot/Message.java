@@ -1,4 +1,4 @@
-package pl.spendings.messages;
+package pl.spendings.messages.annot;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

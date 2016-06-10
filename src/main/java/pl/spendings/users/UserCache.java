@@ -4,6 +4,7 @@ package pl.spendings.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.spendings.database.UsersDAO;
+import pl.spendings.messages.annot.Receive;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
@@ -17,6 +18,7 @@ public class UserCache {
     @Autowired
     private UsersDAO usersDAO;
 
+    @Receive(messageType = User.class)
     public void addUser(User user) {
         users.add(user);
         try {

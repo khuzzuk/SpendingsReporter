@@ -2,6 +2,7 @@ package pl.spendings.users;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Email;
+import pl.spendings.messages.annot.Message;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "id")
 @Entity @Table(name = "users")
+@Message
 public class User {
     @Id
     @GeneratedValue
